@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Webpage for ReLU Benchmark.">
+  <meta name="keywords" content="ReLU, Machine Unlearning, Unlearning in Language Models">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Towards Robust Evaluation of Unlearning in LLMs via Data Transformations</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script> -->
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+  <!-- <link href="https://fonts.googleapis.com/css2?family=Baskervville:ital@0;1&display=swap" rel="stylesheet"> -->
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<!-- <nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://keunhong.com">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://hypernerf.github.io">
+            HyperNeRF
+          </a>
+          <a class="navbar-item" href="https://nerfies.github.io">
+            Nerfies
+          </a>
+          <a class="navbar-item" href="https://latentfusion.github.io">
+            LatentFusion
+          </a>
+          <a class="navbar-item" href="https://photoshape.github.io">
+            PhotoShape
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nav> -->
+
+<!-- Abhinav Joshi, Shaswati Saha, Divyaksh Shukla, Sriram Vema, Harsh Jhamtani, Manas Gaur, Ashutosh Modi -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Towards Robust Evaluation of Unlearning in LLMs via Data Transformations</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://www.cse.iitk.ac.in/users/ajoshi/">Abhinav Joshi</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://github.com/shaswati1">Shaswati Saha</a><sup>2</sup>,</span>
+            <span class="author-block">
+              <a href="https://divyakshshukla.com">Divyaksh Shukla</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://github.com/sriramvema">Sriram Vema</a><sup>2</sup>,</span>
+            <span class="author-block">
+              <a href="https://sites.google.com/view/harshjhamtani/home">Harsh Jhamtani</a><sup>3</sup>,</span>
+            <span class="author-block">
+              <a href="https://manasgaur.github.io/">Manas Gaur</a><sup>2</sup>,</span>
+            <span class="author-block">
+              <a href="https://ashutosh-modi.github.io/">Ashutosh Modi</a><sup>1</sup>
+            </span>
+          </div>
+
+          <!-- Indian Institute of Technology, Kanpur, ¶Microsoft, ⋄University of Maryland Baltimore County -->
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>IIT Kanpur,</span>
+            <span class="author-block"><sup>2</sup>University of Maryland Baltimore County,</span>
+            <span class="author-block"><sup>3</sup>Microsoft</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://aclanthology.org/2024.findings-emnlp.706"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Video Link.
+              <span class="link-block">
+                <a href="https://www.youtube.com/watch?v=MrKrnHhk8IA"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span> -->
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/Exploration-Lab/ReLU"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Dataset Link. -->
+              <span class="link-block">
+                <a href="https://huggingface.co/datasets/Exploration-Lab/ReLU"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Data</span>
+                  </a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+            
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <img id="thumbnail" src="./static/images/ReLU-thumbnail.png" alt="ReLU Thumbnail" height="100%">
+      <h2 class="content has-text-justified">
+        <b>Picture:</b> The pipeline of using open-weight LLMs to train/finetune over new information (Finetuned-LLM). Later, when an unlearning request arises, the new information is split into the Retain and Forget set. The Unlearning algorithms aim towards achieving the Target-LLM (trained/finetuned only on the Retain set) with a cost lower than training/finetuning the pretrained open-weight LLM again. The spider plot shows a performance comparison of <span style="color: green;">Finetuned-LLM (green)</span> vs. <span style="color: blue;">Unlearned-LLM (blue)</span> over the forget set in different formats. Although these unlearning algorithms show a forgetting behavior in the default format (the Q&A performance of Finetuned-LLM is reduced after unlearning), the performance gap varies significantly when evaluating the same information in different formats (MCQA, Analogy, Cloze, OddOneOut, and Comprehension). Note that different formats in the spider plot have different metrics (refer App.C in the paper), and Cloze test performance is 10x scaled for better visibility.
+      </h2>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-4">Measuring Effectiveness of Unlearning via Data Transformation</h2>
+        </div>
+      </div>
+    </div>
+          
+    <div class="hero-body">
+      <h2 class="content has-text-justified">
+         <!-- <b>Measuring Effectiveness of Unlearning via Data Transformation: </b> -->
+        <!-- Measuring Effectiveness of Unlearning via Data Transformation:  -->
+        In our study, we make use of a recent machine unlearning benchmark <a href="https://arxiv.org/abs/2401.06121"> TOFU (Maini
+          et al., 2024) </a>  that considers a setup of unlearning
+via new information simulated as details about 200
+fictitious authors. The <b><a href="https://huggingface.co/datasets/locuslab/TOFU"> TOFU </a> dataset</b> uses 20 Q&A
+queries about each of the fictitious authors to represent all the information in a Q&A format. The
+total dataset consists of <b>4k Q&A pairs</b>. To study
+the effect of data format, we choose a set of 3
+new formats to cover different aspects of knowledge retrieval about the same information, 
+including <b>MCQA (Multiple Choice Question Answering)</b>,
+<b>Cloze</b>, and <b>Analogy</b> (See the top Figure for examples towards the right), to
+ask similar questions in a different style. Additionally, we propose using two additional formats,
+<b>Odd-one-out</b> and <b>Comprehension</b>, to enhance the evaluation quality.
+Table below shows dataset formats currently available in the ReLU dataset.
+      </h2>
+      <div class="content has-text-justified">
+        <table class="table is-fullwidth">
+          <thead>
+            <tr>
+              <th>Format</th>
+              <th>Format Name</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Default Format (TOFU)</td>
+              <td>Q&A</td>
+              <td>The default format provided in the TOFU dataset.</td>
+            </tr><tr>
+              <td>Format-1</td>
+              <td>MCQA (Multiple Choice Question Answering)</td>
+              <td>For each of the queries present in the default
+                Q&A format, the same question is rephrased by
+                providing multiple options for the answers.</td>
+            </tr><tr>
+              <td>Format-2</td>
+              <td>Cloze</td>
+              <td>
+                The queries are provided with a passage that has certain words (words in the end of sentence) missing from it to mask
+                out an information specific to an author. 
+                </td>
+            </tr>
+            <tr>
+              <td>Format-3</td>
+              <td>Analogy</td>
+              <td>
+                Helps validate if the network is able to make
+                relations between the entities (e.g., author name →
+                birth year :: author name → country) by providing some examples in the context (ICL) and asking
+                about another author as a query. 
+                <!-- In other words,
+                we assume the information pool contains details
+                about 5 authors A1, A2, . . . , A5 and the FintunedLLM is trained over all the details about these authors. 
+                During unlearning, if we remove the information about two of the 5 authors (A2 and A5),
+                the goal of the analogy test is to check if the Unlearned LLM is able to retrieve the information
+                about A2 and A5, given the relationship from retained authors. For example, given A1 <name> :
+                A1 <place-of-birth> :: A2 <name> : ?, the analogy test validates if the Unlearned-LLM can still
+                retrieve A2 <place-of-birth> . -->
+
+                </td>
+            </tr>
+            <tr>
+              <td>Format-4</td>
+              <td>Odd-One-Out</td>
+              <td>A query is given to choose the odd one out from a given set of options where one option is coming from retain/forget
+                and another set of wrong options is coming from
+                forget/retain set. 
+                <!-- Ideally, the Finetuned-LLM is
+                expected to perform badly over these queries (having no distinction between forget and retain sets),
+                and as the unlearning progresses, the UnlearnedLLM should show an increased performance since
+                it contains information only about the retain set. -->
+              </td>
+            </tr>
+            <tr>
+              <td>Format-5</td>
+              <td>Comprehension</td>
+              <td>
+                <!-- Another interesting way to -->
+                <!-- enhance the validity of unlearning would be to  -->
+                Provides all the information in the context and ask the
+                same questions in different styles such as Q&A,
+                MCQA, etc. 
+                <!-- Since all the information is present
+                in the context, ideally, the Unlearned-LLM should
+                perform equally as the pretrained LLM, i.e., the unlearning algorithms should show no gap between
+                the retain and the forget set. A gap in retain and
+                forget set for this task would mean the unlearned
+                LLM suppressing generation of the forget set answers to perform well on the objective.</a></td> -->
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- <section class="hero teaser">
+  <div class="columns is-centered has-text-centered">
+    <div class="container is-max-desktop">
+      <iframe
+        src="https://huggingface.co/datasets/Divyaksh/relu-test/embed/viewer/"
+        frameborder="0"
+        width="80%"
+        height="512px"
+        >
+      </iframe>
+      <br><br>
+      <br><br>
+    </div>
+  </div> -->
+  
+</section>
+
+<!-- add a results section -->
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+            <h2 class="title is-4">Experimental Findings</h2>
+          </div>
+        </div>
+      </div>  
+    <div class="hero-body">
+      <h2 class="content has-text-justified">
+        If unlearning went perfectly, we would expect the
+        unlearned model to perform the same as a pretrained model on the forget set. 
+      </h2>
+    </div>
+  </div>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <img id="thumbnail" src="./static/images/Llama2-7b-forget-set.png" alt="ReLU Llama2-7b-forget-set" height="100%">
+      <h2 class="content has-text-justified">
+        Performance of Llama2-7b on different proposed formats of TOFU forget dataset on the base, fine-tuned,
+and unlearned model (with gradient-diff algorithm). Performance measures the ability of the language model to
+retrieve the author’s information from the forget set. In an ideal scenario, we want the unlearned model to perform
+the same as a pretrained model on the forget set, underscoring that the model has forgotten information from the
+forget set.
+      </h2>
+    </div>
+  </div>
+</section>
+
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <img id="thumbnail" src="./static/images/Llama2-7b-retain-set.png" alt="ReLU Llama2-7b-retain-set height="100%">
+      <h2 class="content has-text-justified">
+        Performance of Llama2-7b on our formats of TOFU retain dataset on the base, fine-tuned, and unlearned
+model (with gradient-diff algorithm). In contrast to Fig.2, here the performance measures the ability of the language
+model to retrieve information from the retain set. Ideally, the performance of the Unlearned-LLM should be at par
+with or lower than the Finetuned-LLM but higher than the Pretrained-LLM.
+      </h2>
+    </div>
+  </div>
+</section>
+
+
+
+
+<!-- <section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-4">Sample Dataset</h2>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+
+<!-- add remarks in the end -->
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <h2 class="content has-text-justified">
+        <b>Remarks/Discussion:</b> 
+        The current state of the unlearning benchmarks
+is limited, and the way of maintaining knowledge
+depends on only one dataset format. For future approaches, we recommend a few settings that could
+be tried aiming at different unlearning objectives,
+utilizing various dataset formats. In this work,
+we only considered previous approaches where
+learning and unlearning happen only in one format (Q&A in our case). However, the knowledge
+represented by these formats is the same, and one
+could learn in one format and try unlearning in another format. In another setting, one could assume
+the model is being trained on multiple formats (for
+example, Q&A and MCQA), where one of the formats remains unavailable for unlearning (MCQA).
+In this case, a better unlearning algorithm would
+be able to sufficiently unlearn the requested knowledge from the single available formats. Moreover,
+a wide combination of learning and unlearning formats can be chosen to quantify the robustness of
+future unlearning approaches.
+      </h2>
+      <h2 class="content has-text-justified">
+        We hope the curated dataset
+transformation in 5 different formats will be a useful resource for future benchmarking of unlearning
+algorithms.
+
+    </div>
+  </div>
+
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>
+      @inproceedings{joshi-etal-2024-towards,
+        title = "Towards Robust Evaluation of Unlearning in {LLM}s via Data Transformations",
+        author = "Joshi, Abhinav  and
+          Saha, Shaswati  and
+          Shukla, Divyaksh  and
+          Vema, Sriram  and
+          Jhamtani, Harsh  and
+          Gaur, Manas  and
+          Modi, Ashutosh",
+        editor = "Al-Onaizan, Yaser  and
+          Bansal, Mohit  and
+          Chen, Yun-Nung",
+        booktitle = "Findings of the Association for Computational Linguistics: EMNLP 2024",
+        month = nov,
+        year = "2024",
+        address = "Miami, Florida, USA",
+        publisher = "Association for Computational Linguistics",
+        url = "https://aclanthology.org/2024.findings-emnlp.706",
+        pages = "12100--12119",
+        abstract = "Large Language Models (LLMs) have shown to be a great success in a wide range of applications ranging from regular NLP-based use cases to AI agents. LLMs have been trained on a vast corpus of texts from various sources; despite the best efforts during the data pre-processing stage while training the LLMs, they may pick some undesirable information such as personally identifiable information (PII). Consequently, in recent times research in the area of Machine Unlearning (MUL) has become active, the main idea is to force LLMs to forget (unlearn) certain information (e.g., PII) without suffering from performance loss on regular tasks. In this work, we examine the robustness of the existing MUL techniques for their ability to enable leakage-proof forgetting in LLMs. 
+        In particular, we examine the effect of data transformation on forgetting, i.e., is an unlearned LLM able to recall forgotten information if there is a change in the format of the input? Our findings on the TOFU dataset highlight the necessity of using diverse data formats to quantify unlearning in LLMs more reliably.",
+    }
+  </code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <!-- <a class="icon-link"
+       href="./static/videos/nerfies_paper.pdf">
+      <i class="fas fa-file-pdf"></i>
+      </a> -->
+      <a class="icon-link" href="https://github.com/Exploration-Lab" class="external-link" disabled>
+      Exploration-Lab <i class="fab fa-github"></i>
+      </a>
+    </div>
+    
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <!-- <p>
+            This website template is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p> -->
+          <p>
+            This webpage template is borrowed from the following <a
+              href="https://github.com/nerfies/nerfies.github.io">source code</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</footer>
+
+</body>
+</html>
