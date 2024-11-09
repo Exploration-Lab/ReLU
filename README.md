@@ -1,6 +1,6 @@
 # ReLU
 
-This is the repository that contains source code for the [ReLU website](https://exploration-lab.github.io/ReLU/).
+This is the repository that contains source code for the [ReLU website](https://exploration-lab.github.io/ReLU/). 
 
 If you find ReLU useful for your research please cite:
 ```
