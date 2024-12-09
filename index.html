@@ -337,12 +337,13 @@ Table below shows dataset formats currently available in the ReLU dataset.
   <div class="container is-max-desktop">
     <div class="hero-body">
       <img id="thumbnail" src="./static/images/Llama2-7b-forget-set.png" alt="ReLU Llama2-7b-forget-set" height="100%">
-      <h2 class="content has-text-justified">
-        Performance of Llama2-7b on different proposed formats of TOFU forget dataset on the base, fine-tuned,
+      <h2 class="content has-text-centered">
+        (a) Forget dataset
+        <!-- Performance of Llama2-7b on different proposed formats of TOFU forget dataset on the base, fine-tuned,
 and unlearned model (with gradient-diff algorithm). Performance measures the ability of the language model to
 retrieve the author’s information from the forget set. In an ideal scenario, we want the unlearned model to perform
 the same as a pretrained model on the forget set, underscoring that the model has forgotten information from the
-forget set.
+forget set. -->
       </h2>
     </div>
   </div>
@@ -353,11 +354,17 @@ forget set.
   <div class="container is-max-desktop">
     <div class="hero-body">
       <img id="thumbnail" src="./static/images/Llama2-7b-retain-set.png" alt="ReLU Llama2-7b-retain-set height="100%">
+      <h2 class="content has-text-centered">
+        (a) Retain dataset
+      </h2>
       <h2 class="content has-text-justified">
-        Performance of Llama2-7b on our formats of TOFU retain dataset on the base, fine-tuned, and unlearned
-model (with gradient-diff algorithm). In contrast to the above figure, here the performance measures the ability of the language
+        Performance of Llama2-7b on our formats of TOFU (a) forget dataset and (b) retain dataset on the base, fine-tuned, and unlearned
+model (with gradient-diff algorithm). In figure(a) Performance measures the ability of the language model to
+retrieve the author’s information from the forget set. In an ideal scenario, we want the unlearned model to perform
+the same as a pretrained model on the forget set, underscoring that the model has forgotten information from the
+forget dataset. In contrast to figure (a), in figure (b) the performance measures the ability of the language
 model to retrieve information from the retain set. Ideally, the performance of the Unlearned-LLM should be at par
-with the Finetuned-LLM but higher than the Pretrained-LLM.
+with the Finetuned-LLM but higher than the Pretrained-LLM on the retain dataset. 
       </h2>
     </div>
   </div>
